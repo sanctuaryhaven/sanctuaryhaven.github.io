@@ -56,68 +56,36 @@
             justify-content: space-between;
             align-items: center;
         }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            animation: pulse 2s infinite;
+        }
         
-<style>
-    /* Logo Styles */
-    .logo {
-        display: flex;
-        align-items: center;
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-
-    .logo-image {
-        height: 60px;
-        margin-right: 10px;
-        animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-        100% { transform: translateY(0px); }
-    }
-
-    .logo-text {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 700;
-        font-size: 1.8rem;
-    }
-
-    .logo-subtext {
-        font-size: 0.9rem;
-        opacity: 0.9;
-    }
-</style>
-
-<!-- Header -->
-<header>
-    <div class="container header-content">
-        <div class="logo">
-            <img src="images/logo.png" alt="Sanctuary Haven Logo" class="logo-image">
-            <div>
-                <div class="logo-text">Sanctuary Haven</div>
-                <div class="logo-subtext">Unfettered Health Care for Little Souls</div>
-            </div>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#" class="nav-link" data-page="home">Home</a></li>
-                <li><a href="#" class="nav-link" data-page="about">About</a></li>
-                <li><a href="#" class="nav-link" data-page="programs">Programs</a></li>
-                <li><a href="#" class="nav-link" data-page="projects">Projects</a></li>
-                <li><a href="#" class="nav-link" data-page="get-involved">Get Involved</a></li>
-                <li><a href="#" class="nav-link" data-page="donate">Donate</a></li>
-                <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            margin-right: 10px;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+        }
+        
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        
+        .logo-subtext {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
         
         nav ul {
             display: flex;
