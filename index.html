@@ -6,6 +6,11 @@
     <title>Sanctuary Haven - Unfettered Health Care for Little Souls</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -121,7 +126,7 @@
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7));
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -313,6 +318,12 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             transform: perspective(1000px) rotateY(-5deg);
             transition: transform 0.5s;
+            background-color: #f0f0f0;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
         }
         
         .mission-image:hover {
@@ -378,6 +389,11 @@
             height: 200px;
             overflow: hidden;
             position: relative;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
         }
         
         .program-image img {
@@ -442,6 +458,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             height: 300px;
             transition: all 0.3s;
+            background-color: #e9ecef;
         }
         
         .project-item:hover {
@@ -874,6 +891,173 @@
             color: white;
         }
         
+        /* Quote Section */
+        .quote-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffd166" fill-opacity="0.1" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            animation: wave 15s linear infinite;
+        }
+        
+        .quote-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .quote-text {
+            font-size: 1.8rem;
+            font-style: italic;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .quote-author {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        /* Vision Section */
+        .vision-section {
+            padding: 6rem 0;
+            background: white;
+            text-align: center;
+        }
+        
+        .vision-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .vision-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 300px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .vision-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .vision-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .vision-card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        /* Graphics enhancements */
+        .graphic-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .graphic-element {
+            position: absolute;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .graphic-element.circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+        }
+        
+        .graphic-element.square {
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--primary);
+        }
+        
+        /* Enhanced motion elements */
+        .motion-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: floatAround 20s infinite linear;
+        }
+        
+        @keyframes floatAround {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(30px, 50px) rotate(90deg);
+            }
+            50% {
+                transform: translate(0, 100px) rotate(180deg);
+            }
+            75% {
+                transform: translate(-30px, 50px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        
+        /* Enhanced hero with children image */
+        .hero-with-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Image placeholders with enhanced styling */
+        .image-placeholder {
+            background: linear-gradient(45deg, #e9ecef, #dee2e6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        /* JotForm iframe styling */
+        .jotform-form {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 10px;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
@@ -915,10 +1099,35 @@
             .projects-gallery {
                 grid-template-columns: 1fr;
             }
+            
+            .stats {
+                gap: 1.5rem;
+            }
+            
+            .stat {
+                width: 150px;
+                padding: 1.5rem 0.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .jotform-form {
+                height: 600px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Motion elements -->
+    <div class="motion-elements">
+        <div class="motion-element" style="width: 50px; height: 50px; top: 10%; left: 5%; animation-duration: 25s;"></div>
+        <div class="motion-element" style="width: 30px; height: 30px; top: 20%; left: 90%; animation-duration: 20s; animation-delay: -5s;"></div>
+        <div class="motion-element" style="width: 40px; height: 40px; top: 60%; left: 15%; animation-duration: 30s; animation-delay: -10s;"></div>
+        <div class="motion-element" style="width: 60px; height: 60px; top: 70%; left: 80%; animation-duration: 35s; animation-delay: -15s;"></div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container header-content">
@@ -974,7 +1183,9 @@
                         <p>Our approach combines immediate care with long-term solutions, ensuring that our impact creates lasting change for generations to come.</p>
                     </div>
                     <div class="mission-image">
-                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Children receiving healthcare">
+                        <div class="image-placeholder">
+                            <p>Your Image: Children receiving healthcare</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -987,7 +1198,9 @@
                 <div class="program-cards">
                     <div class="program-card">
                         <div class="program-image">
-                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Medical outreach">
+                            <div class="image-placeholder">
+                                <p>Your Image: Medical outreach</p>
+                            </div>
                         </div>
                         <div class="program-icon">
                             <i class="fas fa-heartbeat"></i>
@@ -1000,7 +1213,9 @@
                     
                     <div class="program-card">
                         <div class="program-image">
-                            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwa90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Health education">
+                            <div class="image-placeholder">
+                                <p>Your Image: Health education</p>
+                            </div>
                         </div>
                         <div class="program-icon">
                             <i class="fas fa-book-medical"></i>
@@ -1013,93 +1228,29 @@
                     
                     <div class="program-card">
                         <div class="program-image">
-                            <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="Clean water initiative">
+                            <div class="image-placeholder">
+                                <p>Your Image: Clean water initiative</p>
+                            </div>
                         </div>
                         <div class="program-icon">
-                            <i class="fas fa-tint"></i>
+                            <i class="fas fa-hand-holding-water"></i>
                         </div>
                         <div class="program-content">
-                            <h3>Clean Water Initiatives</h3>
-                            <p>Building wells and water purification systems to provide communities with access to clean, safe drinking water.</p>
+                            <h3>Clean Water Initiative</h3>
+                            <p>Installing wells and water purification systems to provide communities with access to clean, safe drinking water.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section class="projects">
-            <div class="container">
-                <h2 class="section-title">Our Projects in Action</h2>
-                <p style="text-align: center; margin-bottom: 2rem;">See how we're making a difference through our various initiatives across Africa.</p>
-                
-                <div class="projects-gallery">
-                    <div class="project-item">
-                        <img src="https://images.unsplash.com/photo-1576091160557-22aae9b0e6d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Medical camp" class="project-image">
-                        <div class="project-overlay">
-                            <h3>Medical Camp in Kenya</h3>
-                            <p>Providing free healthcare services to children in rural communities</p>
-                        </div>
-                        <div class="project-social-icon">
-                            <i class="fab fa-instagram"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="project-item">
-                        <img src="https://images.unsplash.com/photo-1576662712957-9c79ae1280f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Health education" class="project-image">
-                        <div class="project-overlay">
-                            <h3>Health Education Workshop</h3>
-                            <p>Teaching children about hygiene and disease prevention</p>
-                        </div>
-                        <div class="project-social-icon">
-                            <i class="fab fa-x-twitter"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="project-item">
-                        <img src="https://images.unsplash.com/photo-1576662712957-9c79ae1280f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Clean water project" class="project-image">
-                        <div class="project-overlay">
-                            <h3>Clean Water Initiative</h3>
-                            <p>Installing water purification systems in remote villages</p>
-                        </div>
-                        <div class="project-social-icon">
-                            <i class="fab fa-instagram"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="project-item">
-                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Vaccination drive" class="project-image">
-                        <div class="project-overlay">
-                            <h3>Vaccination Drive</h3>
-                            <p>Protecting children from preventable diseases</p>
-                        </div>
-                        <div class="project-social-icon">
-                            <i class="fab fa-x-twitter"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="project-item">
-                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwa90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Community outreach" class="project-image">
-                        <div class="project-overlay">
-                            <h3>Community Outreach</h3>
-                            <p>Engaging with local communities to understand their needs</p>
-                        </div>
-                        <div class="project-social-icon">
-                            <i class="fab fa-instagram"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="project-item">
-                        <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="School health program" class="project-image">
-                        <div class="project-overlay">
-                            <h3>School Health Program</h3>
-                            <p>Promoting health and wellness in schools</p>
-                        </div>
-                        <div class="project-social-icon">
-                            <i class="fab fa-x-twitter"></i>
-                        </div>
-                    </div>
+        <!-- Quote Section -->
+        <section class="quote-section">
+            <div class="container quote-content">
+                <div class="quote-text">
+                    "Of all the forms of inequality, injustice in health care is the most shocking and inhumane."
                 </div>
+                <div class="quote-author">- Martin Luther King Jr.</div>
             </div>
         </section>
 
@@ -1107,39 +1258,71 @@
         <section class="impact">
             <div class="container">
                 <h2 class="section-title">Our Impact</h2>
-                <p>Through the dedication of our volunteers and the generosity of our supporters, we've been able to make a real difference in the lives of thousands of children.</p>
-                
                 <div class="stats">
                     <div class="stat">
                         <div class="stat-icon">
                             <i class="fas fa-child"></i>
                         </div>
-                        <div class="stat-number" id="stat1">0</div>
-                        <div class="stat-label">Children Helped</div>
+                        <span class="stat-number" data-count="5000">0</span>
+                        <p>Children Helped</p>
                     </div>
                     
                     <div class="stat">
                         <div class="stat-icon">
-                            <i class="fas fa-home"></i>
+                            <i class="fas fa-stethoscope"></i>
                         </div>
-                        <div class="stat-number" id="stat2">0</div>
-                        <div class="stat-label">Communities Served</div>
+                        <span class="stat-number" data-count="120">0</span>
+                        <p>Medical Camps</p>
                     </div>
                     
                     <div class="stat">
                         <div class="stat-icon">
-                            <i class="fas fa-hands-helping"></i>
+                            <i class="fas fa-users"></i>
                         </div>
-                        <div class="stat-number" id="stat3">0</div>
-                        <div class="stat-label">Youth Volunteers</div>
+                        <span class="stat-number" data-count="350">0</span>
+                        <p>Volunteers</p>
                     </div>
                     
                     <div class="stat">
                         <div class="stat-icon">
-                            <i class="fas fa-project-diagram"></i>
+                            <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <div class="stat-number" id="stat4">0</div>
-                        <div class="stat-label">Ongoing Projects</div>
+                        <span class="stat-number" data-count="18">0</span>
+                        <p>Communities Served</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision Section -->
+        <section class="vision-section">
+            <div class="container">
+                <h2 class="section-title">Vision for 2025</h2>
+                <p>Our ambitious goals for the coming year to expand our impact and reach more children in need.</p>
+                
+                <div class="vision-cards">
+                    <div class="vision-card">
+                        <div class="vision-icon">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <h3>Expand Medical Services</h3>
+                        <p>Establish 5 new mobile clinics to serve remote communities across East Africa.</p>
+                    </div>
+                    
+                    <div class="vision-card">
+                        <div class="vision-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Health Education</h3>
+                        <p>Train 100 new community health workers to provide education and basic care.</p>
+                    </div>
+                    
+                    <div class="vision-card">
+                        <div class="vision-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <h3>Clean Water Access</h3>
+                        <p>Install 15 new water purification systems in communities without clean water.</p>
                     </div>
                 </div>
             </div>
@@ -1179,10 +1362,140 @@
                 <h2 class="section-title">Stay Updated</h2>
                 <p>Subscribe to our newsletter to receive updates on our programs, impact stories, and opportunities to get involved.</p>
                 
-                <form class="newsletter-form" id="newsletter-form">
-                    <input type="email" class="newsletter-input" placeholder="Your email address" required>
-                    <button type="submit" class="newsletter-btn">Subscribe</button>
-                </form>
+                <!-- JotForm Newsletter Form -->
+                <script type="text/javascript" src="https://form.jotform.com/jsform/252346359275565"></script>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section class="hero">
+            <div class="container hero-content">
+                <h1>About Us</h1>
+                <p>Learn about our story, mission, and the team behind Sanctuary Haven.</p>
+            </div>
+        </section>
+
+        <section class="mission">
+            <div class="container">
+                <h2 class="section-title">Our Story</h2>
+                <div class="mission-content">
+                    <div class="mission-text">
+                        <p>Sanctuary Haven was founded in 2018 by a group of passionate university students who witnessed firsthand the healthcare disparities affecting children in rural African communities. What began as a small initiative has grown into a movement of young changemakers dedicated to transforming pediatric healthcare across the continent.</p>
+                        <p>Our unique model empowers youth to lead healthcare initiatives, combining their energy and innovation with guidance from medical professionals to create sustainable impact. We believe that young people are not just the leaders of tomorrow but the changemakers of today.</p>
+                        <p>Over the years, we've maintained our grassroots approach while expanding our reach, always staying true to our core values of compassion, innovation, and sustainable impact.</p>
+                    </div>
+                    <div class="mission-image">
+                        <div class="image-placeholder">
+                            <p>Your Image: Our team</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="impact">
+            <div class="container">
+                <h2 class="section-title">Our Journey</h2>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <span class="stat-number" data-count="6">0</span>
+                        <p>Years of Service</p>
+                    </div>
+                    
+                    <div class="stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <span class="stat-number" data-count="750">0</span>
+                        <p>Youth Volunteers</p>
+                    </div>
+                    
+                    <div class="stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <span class="stat-number" data-count="22">0</span>
+                        <p>Partner Organizations</p>
+                    </div>
+                    
+                    <div class="stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <span class="stat-number" data-count="5">0</span>
+                        <p>Awards Received</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Programs Page -->
+    <div id="programs" class="page">
+        <section class="hero">
+            <div class="container hero-content">
+                <h1>Our Programs</h1>
+                <p>Discover our comprehensive programs designed to improve children's healthcare across Africa.</p>
+            </div>
+        </section>
+
+        <section class="programs">
+            <div class="container">
+                <h2 class="section-title">Our Initiatives</h2>
+                <div class="program-cards">
+                    <div class="program-card">
+                        <div class="program-image">
+                            <div class="image-placeholder">
+                                <p>Your Image: Medical outreach</p>
+                            </div>
+                        </div>
+                        <div class="program-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="program-content">
+                            <h3>Medical Outreach</h3>
+                            <p>Our mobile clinics travel to remote communities, providing essential healthcare services including check-ups, vaccinations, and treatments for common childhood illnesses.</p>
+                            <p>Each clinic is staffed by volunteer medical professionals and trained youth assistants who work together to serve hundreds of children during each outreach.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-card">
+                        <div class="program-image">
+                            <div class="image-placeholder">
+                                <p>Your Image: Health education</p>
+                            </div>
+                        </div>
+                        <div class="program-icon">
+                            <i class="fas fa-book-medical"></i>
+                        </div>
+                        <div class="program-content">
+                            <h3>Health Education</h3>
+                            <p>We believe prevention is just as important as treatment. Our health education programs teach children and families about nutrition, hygiene, and disease prevention.</p>
+                            <p>Using interactive, culturally appropriate methods, we empower communities with knowledge that leads to healthier choices and lasting behavior change.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-card">
+                        <div class="program-image">
+                            <div class="image-placeholder">
+                                <p>Your Image: Clean water initiative</p>
+                            </div>
+                        </div>
+                        <div class="program-icon">
+                            <i class="fas fa-hand-holding-water"></i>
+                        </div>
+                        <div class="program-content">
+                            <h3>Clean Water Initiative</h3>
+                            <p>Access to clean water is a fundamental right and a critical component of health. We install wells and water purification systems in communities without reliable access to safe drinking water.</p>
+                            <p>Each installation includes training on maintenance and hygiene practices to ensure the long-term sustainability of the project.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -1192,7 +1505,7 @@
         <section class="hero">
             <div class="container hero-content">
                 <h1>Our Projects</h1>
-                <p>Discover the impactful work we're doing across Africa to improve children's healthcare.</p>
+                <p>Explore our ongoing and completed projects making a difference in children's lives.</p>
             </div>
         </section>
 
@@ -1202,74 +1515,80 @@
                 
                 <div class="projects-gallery">
                     <div class="project-item">
-                        <img src="https://images.unsplash.com/photo-1576091160557-22aae9b0e6d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Medical camp" class="project-image">
+                        <div class="image-placeholder" style="height: 100%;">
+                            <p>Your Image: Community Health Center</p>
+                        </div>
                         <div class="project-overlay">
-                            <h3>Medical Camp in Kenya</h3>
-                            <p>Providing free healthcare services to children in rural communities</p>
-                            <p><small>Posted: June 15, 2023</small></p>
+                            <h3>Community Health Center</h3>
+                            <p>Building sustainable healthcare infrastructure in rural areas</p>
                         </div>
                         <div class="project-social-icon">
-                            <i class="fab fa-instagram"></i>
+                            <i class="fas fa-plus"></i>
                         </div>
                     </div>
                     
                     <div class="project-item">
-                        <img src="https://images.unsplash.com/photo-1576662712957-9c79ae1280f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Health education" class="project-image">
-                        <div class="project-overlay">
-                            <h3>Health Education Workshop</h3>
-                            <p>Teaching children about hygiene and disease prevention</p>
-                            <p><small>Posted: May 28, 2023</small></p>
+                        <div class="image-placeholder" style="height: 100%;">
+                            <p>Your Image: Vaccination Drive</p>
                         </div>
-                        <div class="project-social-icon">
-                            <i class="fab fa-x-twitter"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="project-item">
-                        <img src="https://images.unsplash.com/photo-1576662712957-9c79ae1280f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Clean water project" class="project-image">
-                        <div class="project-overlay">
-                            <h3>Clean Water Initiative</h3>
-                            <p>Installing water purification systems in remote villages</p>
-                            <p><small>Posted: April 10, 2023</small></p>
-                        </div>
-                        <div class="project-social-icon">
-                            <i class="fab fa-instagram"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="project-item">
-                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Vaccination drive" class="project-image">
                         <div class="project-overlay">
                             <h3>Vaccination Drive</h3>
                             <p>Protecting children from preventable diseases</p>
-                            <p><small>Posted: March 22, 2023</small></p>
                         </div>
                         <div class="project-social-icon">
-                            <i class="fab fa-x-twitter"></i>
+                            <i class="fas fa-plus"></i>
                         </div>
                     </div>
                     
                     <div class="project-item">
-                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwa90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Community outreach" class="project-image">
+                        <div class="image-placeholder" style="height: 100%;">
+                            <p>Your Image: Nutrition Program</p>
+                        </div>
                         <div class="project-overlay">
-                            <h3>Community Outreach</h3>
-                            <p>Engaging with local communities to understand their needs</p>
-                            <p><small>Posted: February 15, 2023</small></p>
+                            <h3>Nutrition Program</h3>
+                            <p>Fighting malnutrition with sustainable solutions</p>
                         </div>
                         <div class="project-social-icon">
-                            <i class="fab fa-instagram"></i>
+                            <i class="fas fa-plus"></i>
                         </div>
                     </div>
                     
                     <div class="project-item">
-                        <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="School health program" class="project-image">
+                        <div class="image-placeholder" style="height: 100%;">
+                            <p>Your Image: Youth Training</p>
+                        </div>
                         <div class="project-overlay">
-                            <h3>School Health Program</h3>
-                            <p>Promoting health and wellness in schools</p>
-                            <p><small>Posted: January 30, 2023</small></p>
+                            <h3>Youth Training</h3>
+                            <p>Empowering the next generation of healthcare leaders</p>
                         </div>
                         <div class="project-social-icon">
-                            <i class="fab fa-x-twitter"></i>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <div class="image-placeholder" style="height: 100%;">
+                            <p>Your Image: Water Project</p>
+                        </div>
+                        <div class="project-overlay">
+                            <h3>Water Project</h3>
+                            <p>Providing clean water to communities</p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <div class="image-placeholder" style="height: 100%;">
+                            <p>Your Image: Mobile Clinic</p>
+                        </div>
+                        <div class="project-overlay">
+                            <h3>Mobile Clinic</h3>
+                            <p>Taking healthcare to remote areas</p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fas fa-plus"></i>
                         </div>
                     </div>
                 </div>
@@ -1292,94 +1611,14 @@
                 
                 <div class="form-container">
                     <h3>Volunteer Application Form</h3>
-                    <form id="volunteer-form">
-                        <div class="form-group">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Phone Number</label>
-                            <input type="tel" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">How would you like to help?</label>
-                            <select class="form-input" required>
-                                <option value="">Select an option</option>
-                                <option value="medical">Medical Professional</option>
-                                <option value="education">Health Education</option>
-                                <option value="fundraising">Fundraising</option>
-                                <option value="admin">Administrative Support</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Availability</label>
-                            <select class="form-input" required>
-                                <option value="">Select an option</option>
-                                <option value="weekly">A few hours per week</option>
-                                <option value="monthly">A few days per month</option>
-                                <option value="project">Specific projects</option>
-                                <option value="events">Events only</option>
-                            </select>
-                        </div>
-                        
-                        <button type="submit" class="form-btn">Submit Application</button>
-                    </form>
+                    <!-- JotForm Volunteer Form -->
+                    <script type="text/javascript" src="https://form.jotform.com/jsform/252346112851047"></script>
                 </div>
                 
                 <div class="form-container" style="margin-top: 3rem;">
                     <h3>Executive Member Application</h3>
-                    <form id="executive-form">
-                        <div class="form-group">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Phone Number</label>
-                            <input type="tel" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Professional Background</label>
-                            <textarea class="form-input" required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Relevant Experience</label>
-                            <textarea class="form-input" required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Why do you want to join Sanctuary Haven as an executive member?</label>
-                            <textarea class="form-input" required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">How can you contribute to our mission?</label>
-                            <textarea class="form-input" required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Upload your CV/Resume</label>
-                            <input type="file" class="form-input" required>
-                        </div>
-                        
-                        <button type="submit" class="form-btn">Submit Application</button>
-                    </form>
+                    <!-- JotForm Executive Form -->
+                    <script type="text/javascript" src="https://form.jotform.com/jsform/252346828101049"></script>
                 </div>
             </div>
         </section>
@@ -1459,6 +1698,67 @@
         </section>
     </div>
 
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="hero">
+            <div class="container hero-content">
+                <h1>Contact Us</h1>
+                <p>Get in touch with us to learn more about our work or explore partnership opportunities.</p>
+            </div>
+        </section>
+
+        <section class="forms">
+            <div class="container">
+                <h2 class="section-title">Send Us a Message</h2>
+                
+                <div class="form-container">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Subject</label>
+                            <input type="text" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-input" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="form-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="mission" style="padding: 4rem 0;">
+            <div class="container">
+                <div class="mission-content">
+                    <div class="mission-text">
+                        <h2 class="section-title">Visit Us</h2>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Kampala, Uganda</p>
+                        <p><i class="fas fa-phone"></i> <strong>Phone:</strong> +256770856865</p>
+                        <p><i class="fas fa-envelope"></i> <strong>Email:</strong> thesanctuaryhaven@gmail.com</p>
+                        <p><i class="fas fa-clock"></i> <strong>Office Hours:</strong> Monday - Friday, 9:00 AM - 5:00 PM</p>
+                    </div>
+                    <div class="mission-image">
+                        <div class="image-placeholder">
+                            <p>Your Image: Our Office</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1471,8 +1771,8 @@
                 
                 <div class="footer-section">
                     <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Compassion Street, Nairobi, Kenya</p>
-                    <p><i class="fas fa-phone"></i> +254 700 123 456</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Kampala, Uganda</p>
+                    <p><i class="fas fa-phone"></i> +256770856865</p>
                     <p><i class="fas fa-envelope"></i> thesanctuaryhaven@gmail.com</p>
                 </div>
                 
@@ -1488,7 +1788,7 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023 Sanctuary Haven. All rights reserved.</p>
+                <p>&copy; 2025 Sanctuary Haven. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1499,7 +1799,7 @@
     </div>
 
     <script>
-        // Your web app's Firebase configuration
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDxOgMgl_KO8-gDnLzb0qkj57Eo7OcEAnY",
             authDomain: "sanctuaryhaven101.firebaseapp.com",
@@ -1511,27 +1811,8 @@
         };
 
         // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        
-        // Show toast notification
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-        
-        // Save form data to Firestore
-        function saveToFirestore(collectionName, data) {
-            return db.collection(collectionName).add({
-                ...data,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            });
-        }
 
         // Counter animation for statistics
         function animateCounter(elementId, finalValue, duration) {
@@ -1559,96 +1840,69 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    animateCounter('stat1', 15000, 2000);
-                    animateCounter('stat2', 42, 1500);
-                    animateCounter('stat3', 350, 1800);
-                    animateCounter('stat4', 12, 1200);
+                    document.querySelectorAll('.stat-number').forEach((el, index) => {
+                        const count = parseInt(el.getAttribute('data-count'));
+                        setTimeout(() => {
+                            animateCounter(`stat-${index}`, count, 2000);
+                        }, index * 300);
+                    });
                     observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
         
+        // Add IDs to stat elements for animation
+        document.querySelectorAll('.stat-number').forEach((el, index) => {
+            el.id = `stat-${index}`;
+        });
+        
         observer.observe(document.querySelector('.impact'));
         
-        // Newsletter form submission with Firebase integration
-        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input').value;
-            
-            // Save to Firebase
-            saveToFirestore('newsletter', { email })
-                .then(() => {
-                    showToast(`Thank you for subscribing with ${email}! You'll receive our updates soon.`);
-                    this.reset();
-                })
-                .catch((error) => {
-                    console.error("Error saving newsletter subscription: ", error);
-                    showToast("Sorry, there was an error with your subscription. Please try again.");
-                });
-        });
-        
-        // Form submissions with Firebase integration
-        document.getElementById('volunteer-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = {
-                name: document.getElementById('volunteer-name').value,
-                email: document.getElementById('volunteer-email').value,
-                phone: document.getElementById('volunteer-phone').value,
-                interests: document.getElementById('volunteer-interests').value
-            };
-            
-            // Save to Firebase
-            saveToFirestore('volunteerApplications', formData)
-                .then(() => {
-                    showToast('Thank you for your volunteer application! We will contact you soon.');
-                    this.reset();
-                })
-                .catch((error) => {
-                    console.error("Error saving volunteer application: ", error);
-                    showToast("Sorry, there was an error submitting your application. Please try again.");
-                });
-        });
-        
-        document.getElementById('executive-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = {
-                name: document.getElementById('executive-name').value,
-                email: document.getElementById('executive-email').value,
-                experience: document.getElementById('executive-experience').value,
-                position: document.getElementById('executive-position').value
-            };
-            
-            // Save to Firebase
-            saveToFirestore('executiveApplications', formData)
-                .then(() => {
-                    showToast('Thank you for your executive member application! We will review it and contact you soon.');
-                    this.reset();
-                })
-                .catch((error) => {
-                    console.error("Error saving executive application: ", error);
-                    showToast("Sorry, there was an error submitting your application. Please try again.");
-                });
-        });
-        
+        // Form submissions
         document.getElementById('donation-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const amount = document.getElementById('donation-amount').value;
-            const formData = {
+            const amount = this.querySelector('input[type="number"]').value;
+            
+            // Save to Firebase
+            db.collection('donations').add({
                 amount: amount,
-                name: document.getElementById('donor-name').value,
-                email: document.getElementById('donor-email').value
+                name: this.querySelectorAll('input[type="text"]')[0].value,
+                email: this.querySelectorAll('input[type="email"]')[0].value,
+                paymentMethod: this.querySelectorAll('select')[0].value,
+                timestamp: new Date()
+            })
+            .then(() => {
+                alert(`Thank you for your donation of $${amount}! Your support makes a difference.`);
+                this.reset();
+            })
+            .catch((error) => {
+                console.error("Error saving donation: ", error);
+                alert("There was an error processing your donation. Please try again.");
+            });
+        });
+        
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: this.querySelectorAll('input[type="text"]')[0].value,
+                email: this.querySelector('input[type="email"]').value,
+                subject: this.querySelectorAll('input[type="text"]')[1].value,
+                message: this.querySelector('textarea').value,
+                timestamp: new Date()
             };
             
             // Save to Firebase
-            saveToFirestore('donations', formData)
-                .then(() => {
-                    showToast(`Thank you for your donation of $${amount}! Your support makes a difference.`);
-                    this.reset();
-                })
-                .catch((error) => {
-                    console.error("Error saving donation: ", error);
-                    showToast("Sorry, there was an error processing your donation. Please try again.");
-                });
+            db.collection('contact-messages').add(formData)
+            .then(() => {
+                alert('Thank you for your message! We will get back to you soon.');
+                this.reset();
+            })
+            .catch((error) => {
+                console.error("Error saving contact message: ", error);
+                alert("There was an error sending your message. Please try again.");
+            });
         });
         
         // Page navigation
@@ -1686,6 +1940,29 @@
             item.style.opacity = '0';
             projectObserver.observe(item);
         });
+
+        // Animate vision cards on scroll
+        const visionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s ease-out forwards';
+                    entry.target.style.opacity = '1';
+                    visionObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.vision-card').forEach(card => {
+            card.style.opacity = '0';
+            visionObserver.observe(card);
+        });
+
+        // Enhanced motion for floating elements
+        document.querySelectorAll('.floating-element').forEach(el => {
+            el.style.animationDuration = `${15 + Math.random() * 10}s`;
+            el.style.animationDelay = `-${Math.random() * 10}s`;
+        });
+
     </script>
 </body>
 </html>
