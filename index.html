@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanctuary Haven - Unfettered Health Care for Little Souls</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2c87a7;
+            --secondary: #1a5f7a;
+            --accent: #ffd166;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            margin-right: 10px;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+        }
+        
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        
+        .logo-subtext {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+            padding: 8rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffd166" fill-opacity="0.1" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: bottom;
+            animation: wave 10s linear infinite;
+        }
+        
+        @keyframes wave {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1440px; }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite 1s;
+        }
+        
+        .btn:hover {
+            background: #ffc44d;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation: float 15s linear infinite;
+        }
+        
+        .floating-element:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation: float 12s linear infinite reverse;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .floating-element:nth-child(3) {
+            top: 40%;
+            left: 50%;
+            animation: float 18s linear infinite;
+            width: 25px;
+            height: 25px;
+        }
+        
+        .floating-element:nth-child(4) {
+            top: 70%;
+            left: 20%;
+            animation: float 20s linear infinite reverse;
+            width: 35px;
+            height: 35px;
+        }
+        
+        .floating-element:nth-child(5) {
+            top: 30%;
+            left: 75%;
+            animation: float 16s linear infinite;
+            width: 20px;
+            height: 20px;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+        
+        /* Mission Section */
+        .mission {
+            padding: 6rem 0;
+            background: white;
+            position: relative;
+        }
+        
+        .mission::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,192C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--secondary);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .mission-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+            justify-content: center;
+        }
+        
+        .mission-text {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+        }
+        
+        .mission-image {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.5s;
+        }
+        
+        .mission-image:hover {
+            transform: perspective(1000px) rotateY(0);
+        }
+        
+        .mission-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .mission-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Programs Section */
+        .programs {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f2f7fb 0%, #e3f2fd 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .programs::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.2" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            animation: wave 15s linear infinite;
+        }
+        
+        .program-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .program-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .program-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .program-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .program-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .program-card:hover .program-image img {
+            transform: scale(1.1);
+        }
+        
+        .program-content {
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .program-content h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .program-icon {
+            position: absolute;
+            top: -30px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .program-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 6rem 0;
+            background: white;
+            position: relative;
+        }
+        
+        .projects-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .project-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 300px;
+            transition: all 0.3s;
+        }
+        
+        .project-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .project-item:hover .project-image {
+            transform: scale(1.1);
+        }
+        
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 2rem 1.5rem 1.5rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .project-item:hover .project-overlay {
+            transform: translateY(0);
+        }
+        
+        .project-social-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Impact Section */
+        .impact {
+            padding: 6rem 0;
+            background: white;
+            text-align: center;
+            position: relative;
+        }
+        
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        
+        .stat {
+            text-align: center;
+            width: 200px;
+            position: relative;
+            padding: 2rem 1rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .stat:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .stat-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        /* Social Media Section */
+        .social-media {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .social-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .social-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 300px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+        
+        .social-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .social-card h3 {
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .social-card p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .social-link {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent);
+            color: var(--dark);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Newsletter Section */
+        .newsletter {
+            padding: 6rem 0;
+            background: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .newsletter-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem 1.5rem;
+            border: 2px solid #e9ecef;
+            border-radius: 50px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(44, 135, 167, 0.2);
+        }
+        
+        .newsletter-btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            background: var(--accent);
+            color: var(--dark);
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .newsletter-btn:hover {
+            background: #ffc44d;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Forms Section */
+        .forms {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f2f7fb 0%, #e3f2fd 100%);
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(44, 135, 167, 0.2);
+        }
+        
+        textarea.form-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            background: var(--accent);
+            color: var(--dark);
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .form-btn:hover {
+            background: #ffc44d;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Donation Section */
+        .donation {
+            padding: 6rem 0;
+            background: white;
+            text-align: center;
+        }
+        
+        .donation-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .donation-option {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 250px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .donation-option:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .donation-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .donation-desc {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 1rem;
+            position: relative;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Page Navigation */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Logo watermark for authenticity */
+        .logo-watermark {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        .logo-watermark i {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .mission-content {
+                flex-direction: column;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .newsletter-input {
+                width: 100%;
+            }
+            
+            .form-container {
+                padding: 2rem;
+            }
+            
+            .projects-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <div>
+                    <div class="logo-text">Sanctuary Haven</div>
+                    <div class="logo-subtext">Unfettered Health Care for Little Souls</div>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="about">About</a></li>
+                    <li><a href="#" class="nav-link" data-page="programs">Programs</a></li>
+                    <li><a href="#" class="nav-link" data-page="projects">Projects</a></li>
+                    <li><a href="#" class="nav-link" data-page="get-involved">Get Involved</a></li>
+                    <li><a href="#" class="nav-link" data-page="donate">Donate</a></li>
+                    <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="floating-elements">
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+            </div>
+            <div class="container hero-content">
+                <h1>Championing Better Health for Children in Africa</h1>
+                <p>At Sanctuary Haven, youth come together to spread joy, kindness, and create real impact for children across Africa.</p>
+                <a href="#" class="btn">Make a Difference</a>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="mission">
+            <div class="container">
+                <h2 class="section-title">Our Mission</h2>
+                <div class="mission-content">
+                    <div class="mission-text">
+                        <p>Sanctuary Haven is dedicated to providing unfettered healthcare access to children across Africa. We believe that every child deserves the opportunity to grow up healthy, happy, and full of hope for the future.</p>
+                        <p>Through our network of dedicated youth volunteers, healthcare professionals, and community partners, we deliver essential medical services, health education, and sustainable healthcare solutions to underserved communities.</p>
+                        <p>Our approach combines immediate care with long-term solutions, ensuring that our impact creates lasting change for generations to come.</p>
+                    </div>
+                    <div class="mission-image">
+                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Children receiving healthcare">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programs Section -->
+        <section class="programs">
+            <div class="container">
+                <h2 class="section-title">Our Programs</h2>
+                <div class="program-cards">
+                    <div class="program-card">
+                        <div class="program-image">
+                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Medical outreach">
+                        </div>
+                        <div class="program-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="program-content">
+                            <h3>Medical Outreach</h3>
+                            <p>Mobile clinics that bring essential healthcare services directly to remote communities, providing check-ups, vaccinations, and treatments.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-card">
+                        <div class="program-image">
+                            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwa90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Health education">
+                        </div>
+                        <div class="program-icon">
+                            <i class="fas fa-book-medical"></i>
+                        </div>
+                        <div class="program-content">
+                            <h3>Health Education</h3>
+                            <p>Interactive workshops that teach children and families about nutrition, hygiene, and disease prevention for healthier communities.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="program-card">
+                        <div class="program-image">
+                            <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="Clean water initiative">
+                        </div>
+                        <div class="program-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="program-content">
+                            <h3>Clean Water Initiatives</h3>
+                            <p>Building wells and water purification systems to provide communities with access to clean, safe drinking water.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects">
+            <div class="container">
+                <h2 class="section-title">Our Projects in Action</h2>
+                <p style="text-align: center; margin-bottom: 2rem;">See how we're making a difference through our various initiatives across Africa.</p>
+                
+                <div class="projects-gallery">
+                    <div class="project-item">
+                        <img src="https://images.unsplash.com/photo-1576091160557-22aae9b0e6d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Medical camp" class="project-image">
+                        <div class="project-overlay">
+                            <h3>Medical Camp in Kenya</h3>
+                            <p>Providing free healthcare services to children in rural communities</p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <img src="https://images.unsplash.com/photo-1576662712957-9c79ae1280f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Health education" class="project-image">
+                        <div class="project-overlay">
+                            <h3>Health Education Workshop</h3>
+                            <p>Teaching children about hygiene and disease prevention</p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fab fa-x-twitter"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <img src="https://images.unsplash.com/photo-1576662712957-9c79ae1280f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Clean water project" class="project-image">
+                        <div class="project-overlay">
+                            <h3>Clean Water Initiative</h3>
+                            <p>Installing water purification systems in remote villages</p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Vaccination drive" class="project-image">
+                        <div class="project-overlay">
+                            <h3>Vaccination Drive</h3>
+                            <p>Protecting children from preventable diseases</p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fab fa-x-twitter"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwa90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Community outreach" class="project-image">
+                        <div class="project-overlay">
+                            <h3>Community Outreach</h3>
+                            <p>Engaging with local communities to understand their needs</p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="School health program" class="project-image">
+                        <div class="project-overlay">
+                            <h3>School Health Program</h3>
+                            <p>Promoting health and wellness in schools</p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fab fa-x-twitter"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Section -->
+        <section class="impact">
+            <div class="container">
+                <h2 class="section-title">Our Impact</h2>
+                <p>Through the dedication of our volunteers and the generosity of our supporters, we've been able to make a real difference in the lives of thousands of children.</p>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <div class="stat-number" id="stat1">0</div>
+                        <div class="stat-label">Children Helped</div>
+                    </div>
+                    
+                    <div class="stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="stat-number" id="stat2">0</div>
+                        <div class="stat-label">Communities Served</div>
+                    </div>
+                    
+                    <div class="stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <div class="stat-number" id="stat3">0</div>
+                        <div class="stat-label">Youth Volunteers</div>
+                    </div>
+                    
+                    <div class="stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="stat-number" id="stat4">0</div>
+                        <div class="stat-label">Ongoing Projects</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Media Section -->
+        <section class="social-media">
+            <div class="container">
+                <h2 class="section-title">Connect With Us</h2>
+                <p>Follow our journey and stay updated with our latest initiatives and impact stories.</p>
+                
+                <div class="social-cards">
+                    <div class="social-card">
+                        <div class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <h3>Instagram</h3>
+                        <p>Follow us on Instagram for behind-the-scenes moments and stories of hope.</p>
+                        <a href="https://www.instagram.com/thesanctuaryhaven?igsh=MTAxeW4wdDNsZjBnMQ==" class="social-link" target="_blank">Follow Us</a>
+                    </div>
+                    
+                    <div class="social-card">
+                        <div class="social-icon">
+                            <i class="fab fa-x-twitter"></i>
+                        </div>
+                        <h3>X (Twitter)</h3>
+                        <p>Join the conversation on X and stay updated with our latest news.</p>
+                        <a href="https://x.com/SanctuaryHaven_?t=BsYyJWXjZw9A2Zdeintxyw&s=09" class="social-link" target="_blank">Follow Us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <div class="container">
+                <h2 class="section-title">Stay Updated</h2>
+                <p>Subscribe to our newsletter to receive updates on our programs, impact stories, and opportunities to get involved.</p>
+                
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Projects Page -->
+    <div id="projects" class="page">
+        <section class="hero">
+            <div class="container hero-content">
+                <h1>Our Projects</h1>
+                <p>Discover the impactful work we're doing across Africa to improve children's healthcare.</p>
+            </div>
+        </section>
+
+        <section class="projects">
+            <div class="container">
+                <h2 class="section-title">Recent Initiatives</h2>
+                
+                <div class="projects-gallery">
+                    <div class="project-item">
+                        <img src="https://images.unsplash.com/photo-1576091160557-22aae9b0e6d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Medical camp" class="project-image">
+                        <div class="project-overlay">
+                            <h3>Medical Camp in Kenya</h3>
+                            <p>Providing free healthcare services to children in rural communities</p>
+                            <p><small>Posted: June 15, 2023</small></p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <img src="https://images.unsplash.com/photo-1576662712957-9c79ae1280f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Health education" class="project-image">
+                        <div class="project-overlay">
+                            <h3>Health Education Workshop</h3>
+                            <p>Teaching children about hygiene and disease prevention</p>
+                            <p><small>Posted: May 28, 2023</small></p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fab fa-x-twitter"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <img src="https://images.unsplash.com/photo-1576662712957-9c79ae1280f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Clean water project" class="project-image">
+                        <div class="project-overlay">
+                            <h3>Clean Water Initiative</h3>
+                            <p>Installing water purification systems in remote villages</p>
+                            <p><small>Posted: April 10, 2023</small></p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Vaccination drive" class="project-image">
+                        <div class="project-overlay">
+                            <h3>Vaccination Drive</h3>
+                            <p>Protecting children from preventable diseases</p>
+                            <p><small>Posted: March 22, 2023</small></p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fab fa-x-twitter"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwa90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" alt="Community outreach" class="project-image">
+                        <div class="project-overlay">
+                            <h3>Community Outreach</h3>
+                            <p>Engaging with local communities to understand their needs</p>
+                            <p><small>Posted: February 15, 2023</small></p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="project-item">
+                        <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="School health program" class="project-image">
+                        <div class="project-overlay">
+                            <h3>School Health Program</h3>
+                            <p>Promoting health and wellness in schools</p>
+                            <p><small>Posted: January 30, 2023</small></p>
+                        </div>
+                        <div class="project-social-icon">
+                            <i class="fab fa-x-twitter"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Get Involved Page -->
+    <div id="get-involved" class="page">
+        <section class="hero">
+            <div class="container hero-content">
+                <h1>Get Involved</h1>
+                <p>Join our mission to provide healthcare to children across Africa. Your time and skills can make a real difference.</p>
+            </div>
+        </section>
+
+        <section class="forms">
+            <div class="container">
+                <h2 class="section-title">Volunteer Opportunities</h2>
+                
+                <div class="form-container">
+                    <h3>Volunteer Application Form</h3>
+                    <form id="volunteer-form">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">How would you like to help?</label>
+                            <select class="form-input" required>
+                                <option value="">Select an option</option>
+                                <option value="medical">Medical Professional</option>
+                                <option value="education">Health Education</option>
+                                <option value="fundraising">Fundraising</option>
+                                <option value="admin">Administrative Support</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Availability</label>
+                            <select class="form-input" required>
+                                <option value="">Select an option</option>
+                                <option value="weekly">A few hours per week</option>
+                                <option value="monthly">A few days per month</option>
+                                <option value="project">Specific projects</option>
+                                <option value="events">Events only</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="form-btn">Submit Application</button>
+                    </form>
+                </div>
+                
+                <div class="form-container" style="margin-top: 3rem;">
+                    <h3>Executive Member Application</h3>
+                    <form id="executive-form">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Professional Background</label>
+                            <textarea class="form-input" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Relevant Experience</label>
+                            <textarea class="form-input" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Why do you want to join Sanctuary Haven as an executive member?</label>
+                            <textarea class="form-input" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">How can you contribute to our mission?</label>
+                            <textarea class="form-input" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Upload your CV/Resume</label>
+                            <input type="file" class="form-input" required>
+                        </div>
+                        
+                        <button type="submit" class="form-btn">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Donate Page -->
+    <div id="donate" class="page">
+        <section class="hero">
+            <div class="container hero-content">
+                <h1>Make a Donation</h1>
+                <p>Your support helps us provide essential healthcare services to children across Africa.</p>
+            </div>
+        </section>
+
+        <section class="donation">
+            <div class="container">
+                <h2 class="section-title">Ways to Give</h2>
+                
+                <div class="donation-options">
+                    <div class="donation-option">
+                        <div class="donation-amount">$25</div>
+                        <div class="donation-desc">Provides health supplies for 5 children</div>
+                        <button class="btn">Donate Now</button>
+                    </div>
+                    
+                    <div class="donation-option">
+                        <div class="donation-amount">$50</div>
+                        <div class="donation-desc">Supports a mobile clinic for a day</div>
+                        <button class="btn">Donate Now</button>
+                    </div>
+                    
+                    <div class="donation-option">
+                        <div class="donation-amount">$100</div>
+                        <div class="donation-desc">Provides clean water for a family</div>
+                        <button class="btn">Donate Now</button>
+                    </div>
+                    
+                    <div class="donation-option">
+                        <div class="donation-amount">$250</div>
+                        <div class="donation-desc">Funds health education workshops</div>
+                        <button class="btn">Donate Now</button>
+                    </div>
+                </div>
+                
+                <div class="form-container" style="margin-top: 4rem;">
+                    <h3>Custom Donation Amount</h3>
+                    <form id="donation-form">
+                        <div class="form-group">
+                            <label class="form-label">Donation Amount ($)</label>
+                            <input type="number" class="form-input" required min="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Payment Method</label>
+                            <select class="form-input" required>
+                                <option value="">Select payment method</option>
+                                <option value="credit-card">Credit Card</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="bank-transfer">Bank Transfer</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="form-btn">Donate Now</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sanctuary Haven</h3>
+                    <p>Unfettered Health Care for Little Souls</p>
+                    <p>Championing better health for children across Africa.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Compassion Street, Nairobi, Kenya</p>
+                    <p><i class="fas fa-phone"></i> +254 700 123 456</p>
+                    <p><i class="fas fa-envelope"></i> thesanctuaryhaven@gmail.com</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/thesanctuaryhaven?igsh=MTAxeW4wdDNsZjBnMQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://x.com/SanctuaryHaven_?t=BsYyJWXjZw9A2Zdeintxyw&s=09" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Sanctuary Haven. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logo Watermark -->
+    <div class="logo-watermark">
+        <i class="fas fa-hands-helping"></i>
+    </div>
+
+    <script>
+        // Counter animation for statistics
+        function animateCounter(elementId, finalValue, duration) {
+            let startTime = null;
+            const element = document.getElementById(elementId);
+            const initialValue = 0;
+            
+            function updateCounter(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const currentValue = Math.floor(progress * (finalValue - initialValue) + initialValue);
+                element.textContent = currentValue.toLocaleString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = finalValue.toLocaleString();
+                }
+            }
+            
+            requestAnimationFrame(updateCounter);
+        }
+        
+        // Intersection Observer to trigger counter animation when section is in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter('stat1', 15000, 2000);
+                    animateCounter('stat2', 42, 1500);
+                    animateCounter('stat3', 350, 1800);
+                    animateCounter('stat4', 12, 1200);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.querySelector('.impact'));
+        
+        // Newsletter form submission
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            alert(`Thank you for subscribing with ${email}! You'll receive our updates at thesanctuaryhaven@gmail.com soon.`);
+            this.reset();
+        });
+        
+        // Form submissions
+        document.getElementById('volunteer-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your volunteer application! We will contact you soon.');
+            this.reset();
+        });
+        
+        document.getElementById('executive-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your executive member application! We will review it and contact you soon.');
+            this.reset();
+        });
+        
+        document.getElementById('donation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const amount = this.querySelector('input[type="number"]').value;
+            alert(`Thank you for your donation of $${amount}! Your support makes a difference.`);
+            this.reset();
+        });
+        
+        // Page navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetPage = this.getAttribute('data-page');
+                
+                // Hide all pages
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Show target page
+                document.getElementById(targetPage).classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Add animation to project items when they come into view
+        const projectObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s ease-out forwards';
+                    entry.target.style.opacity = '1';
+                    projectObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe all project items
+        document.querySelectorAll('.project-item').forEach(item => {
+            item.style.opacity = '0';
+            projectObserver.observe(item);
+        });
+    </script>
+</body>
+</html>
