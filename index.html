@@ -1498,7 +1498,41 @@
         <i class="fas fa-hands-helping"></i>
     </div>
 
-    <script type="module">
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDxOgMgl_KO8-gDnLzb0qkj57Eo7OcEAnY",
+            authDomain: "sanctuaryhaven101.firebaseapp.com",
+            projectId: "sanctuaryhaven101",
+            storageBucket: "sanctuaryhaven101.firebasestorage.app",
+            messagingSenderId: "392125129513",
+            appId: "1:392125129513:web:2619943a8daa0214be4d38",
+            measurementId: "G-D26BQD3F80"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Save form data to Firestore
+        function saveToFirestore(collectionName, data) {
+            return db.collection(collectionName).add({
+                ...data,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        }
+
         // Counter animation for statistics
         function animateCounter(elementId, finalValue, duration) {
             let startTime = null;
@@ -1536,32 +1570,85 @@
         
         observer.observe(document.querySelector('.impact'));
         
-        // Newsletter form submission
+        // Newsletter form submission with Firebase integration
         document.getElementById('newsletter-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const email = this.querySelector('input').value;
-            alert(`Thank you for subscribing with ${email}! You'll receive our updates at thesanctuaryhaven@gmail.com soon.`);
-            this.reset();
+            
+            // Save to Firebase
+            saveToFirestore('newsletter', { email })
+                .then(() => {
+                    showToast(`Thank you for subscribing with ${email}! You'll receive our updates soon.`);
+                    this.reset();
+                })
+                .catch((error) => {
+                    console.error("Error saving newsletter subscription: ", error);
+                    showToast("Sorry, there was an error with your subscription. Please try again.");
+                });
         });
         
-        // Form submissions
+        // Form submissions with Firebase integration
         document.getElementById('volunteer-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your volunteer application! We will contact you soon.');
-            this.reset();
+            const formData = {
+                name: document.getElementById('volunteer-name').value,
+                email: document.getElementById('volunteer-email').value,
+                phone: document.getElementById('volunteer-phone').value,
+                interests: document.getElementById('volunteer-interests').value
+            };
+            
+            // Save to Firebase
+            saveToFirestore('volunteerApplications', formData)
+                .then(() => {
+                    showToast('Thank you for your volunteer application! We will contact you soon.');
+                    this.reset();
+                })
+                .catch((error) => {
+                    console.error("Error saving volunteer application: ", error);
+                    showToast("Sorry, there was an error submitting your application. Please try again.");
+                });
         });
         
         document.getElementById('executive-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your executive member application! We will review it and contact you soon.');
-            this.reset();
+            const formData = {
+                name: document.getElementById('executive-name').value,
+                email: document.getElementById('executive-email').value,
+                experience: document.getElementById('executive-experience').value,
+                position: document.getElementById('executive-position').value
+            };
+            
+            // Save to Firebase
+            saveToFirestore('executiveApplications', formData)
+                .then(() => {
+                    showToast('Thank you for your executive member application! We will review it and contact you soon.');
+                    this.reset();
+                })
+                .catch((error) => {
+                    console.error("Error saving executive application: ", error);
+                    showToast("Sorry, there was an error submitting your application. Please try again.");
+                });
         });
         
         document.getElementById('donation-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const amount = this.querySelector('input[type="number"]').value;
-            alert(`Thank you for your donation of $${amount}! Your support makes a difference.`);
-            this.reset();
+            const amount = document.getElementById('donation-amount').value;
+            const formData = {
+                amount: amount,
+                name: document.getElementById('donor-name').value,
+                email: document.getElementById('donor-email').value
+            };
+            
+            // Save to Firebase
+            saveToFirestore('donations', formData)
+                .then(() => {
+                    showToast(`Thank you for your donation of $${amount}! Your support makes a difference.`);
+                    this.reset();
+                })
+                .catch((error) => {
+                    console.error("Error saving donation: ", error);
+                    showToast("Sorry, there was an error processing your donation. Please try again.");
+                });
         });
         
         // Page navigation
@@ -1599,27 +1686,6 @@
             item.style.opacity = '0';
             projectObserver.observe(item);
         });
-        // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDxOgMgl_KO8-gDnLzb0qkj57Eo7OcEAnY",
-  authDomain: "sanctuaryhaven101.firebaseapp.com",
-  projectId: "sanctuaryhaven101",
-  storageBucket: "sanctuaryhaven101.firebasestorage.app",
-  messagingSenderId: "392125129513",
-  appId: "1:392125129513:web:2619943a8daa0214be4d38",
-  measurementId: "G-D26BQD3F80"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
     </script>
 </body>
 </html>
