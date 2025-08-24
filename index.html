@@ -42,75 +42,72 @@
 header {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
-    padding: 1rem 0;
+    padding: 0.8rem 2rem;
     position: sticky;
     top: 0;
+    width: 100%;
     z-index: 1000;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Flexbox for header content */
+/* HEADER CONTENT */
 .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Logo container */
+/* LOGO CONTAINER */
 .logo {
     display: flex;
     align-items: center;
-    animation: pulse 2s infinite;
+    gap: 12px;
 }
 
-/* Logo animation */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+/* LOGO IMAGE */
+.logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
 }
 
-/* Logo icon size */
-.logo-icon {
-    font-size: 2.5rem;
-    margin-right: 10px;
-    color: var(--accent);
-    text-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
-}
-
-/* Main logo text (title) */
+/* LOGO TEXT */
 .logo-text {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: clamp(1.8rem, 2.5vw, 2.4rem); /* Increased size + responsiveness */
+    display: flex;
+    flex-direction: column;
     line-height: 1.2;
 }
 
-/* Tagline under logo */
-.logo-subtext {
-    font-size: clamp(1rem, 1.5vw, 1.2rem); /* Increased for better readability */
-    opacity: 0.9;
-    display: block;
-    margin-top: 2px;
+.logo-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
-/* Navigation styles */
+.logo-subtext {
+    font-size: 0.9rem;
+    font-weight: 400;
+    opacity: 0.85;
+}
+
+/* NAVIGATION */
 nav ul {
     display: flex;
     list-style: none;
-}
-
-nav ul li {
-    margin-left: 1.5rem;
-    position: relative;
+    gap: 1.5rem;
 }
 
 nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s;
-    padding: 0.5rem 0;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+    position: relative;
 }
 
 nav ul li a:hover {
@@ -122,14 +119,42 @@ nav ul li a::after {
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: 0;
+    bottom: -4px;
     left: 0;
     background-color: var(--accent);
-    transition: width 0.3s;
+    transition: width 0.3s ease;
 }
 
 nav ul li a:hover::after {
     width: 100%;
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 0;
+    }
+
+    nav ul {
+        margin-top: 8px;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .logo img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .logo-title {
+        font-size: 1.4rem;
+    }
+
+    .logo-subtext {
+        font-size: 0.85rem;
+    }
 }
 
         
