@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-   
-    
     <style>
         * {
             margin: 0;
@@ -20,6 +18,8 @@
             --primary: #2c87a7;
             --secondary: #1a5f7a;
             --accent: #ffd166;
+            --accent2: #ff6b6b;
+            --accent3: #4ecdc4;
             --light: #f8f9fa;
             --dark: #343a40;
         }
@@ -124,19 +124,26 @@
         
         /* Hero Section */
         .hero {
-    background: 
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
-        url("images/hero.png"); /* path to your hero image */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: white;
-    text-align: center;
-    padding: 8rem 1rem;
-    position: relative;
-    overflow: hidden;
-}
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+            padding: 8rem 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: background-image 1s ease-in-out;
+        }
 
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7));
+            z-index: 0;
+        }
         
         .hero::before {
             content: '';
@@ -149,6 +156,7 @@
             background-size: cover;
             background-position: bottom;
             animation: wave 10s linear infinite;
+            z-index: 0;
         }
         
         @keyframes wave {
@@ -158,7 +166,7 @@
         
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -188,6 +196,8 @@
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             animation: pulse 2s infinite 1s;
+            border: none;
+            cursor: pointer;
         }
         
         .btn:hover {
@@ -203,6 +213,7 @@
             top: 0;
             left: 0;
             overflow: hidden;
+            z-index: 1;
         }
         
         .floating-element {
@@ -531,7 +542,7 @@
             padding: 2rem 1rem;
             border-radius: 15px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px5px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s;
         }
         
@@ -710,7 +721,7 @@
             transition: all 0.3s;
         }
         
-        .form-input:focus {
+           .form-input:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(44, 135, 167, 0.2);
@@ -841,6 +852,7 @@
         /* Page Navigation */
         .page {
             display: none;
+            animation: fadeIn 0.5s ease-in-out;
         }
         
         .page.active {
@@ -867,6 +879,15 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
             }
         }
         
@@ -1051,12 +1072,43 @@
             padding: 20px;
         }
         
+        .image-placeholder img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
         /* JotForm iframe styling */
         .jotform-form {
             width: 100%;
             height: 500px;
             border: none;
             border-radius: 10px;
+        }
+        
+        /* Colorful elements */
+        .color-accent {
+            color: var(--accent);
+        }
+        
+        .color-accent2 {
+            color: var(--accent2);
+        }
+        
+        .color-accent3 {
+            color: var(--accent3);
+        }
+        
+        .bg-accent {
+            background-color: var(--accent);
+        }
+        
+        .bg-accent2 {
+            background-color: var(--accent2);
+        }
+        
+        .bg-accent3 {
+            background-color: var(--accent3);
         }
         
         /* Responsive Design */
@@ -1068,8 +1120,8 @@
             
             nav ul {
                 margin-top: 1rem;
-                justify-content: center;
                 flex-wrap: wrap;
+                justify-content: center;
             }
             
             nav ul li {
@@ -1080,62 +1132,40 @@
                 font-size: 2.5rem;
             }
             
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
             .mission-content {
                 flex-direction: column;
             }
             
-            .newsletter-form {
+            .program-cards {
                 flex-direction: column;
                 align-items: center;
             }
             
-            .newsletter-input {
+            .program-card {
                 width: 100%;
+                max-width: 350px;
             }
             
-            .form-container {
-                padding: 2rem;
+            .newsletter-form {
+                flex-direction: column;
             }
             
-            .projects-gallery {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                gap: 1.5rem;
-            }
-            
-            .stat {
-                width: 150px;
-                padding: 1.5rem 0.5rem;
-            }
-            
-            .stat-number {
-                font-size: 2.5rem;
-            }
-            
-            .jotform-form {
-                height: 600px;
+            .newsletter-input {
+                min-width: auto;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Motion elements -->
-    <div class="motion-elements">
-        <div class="motion-element" style="width: 50px; height: 50px; top: 10%; left: 5%; animation-duration: 25s;"></div>
-        <div class="motion-element" style="width: 30px; height: 30px; top: 20%; left: 90%; animation-duration: 20s; animation-delay: -5s;"></div>
-        <div class="motion-element" style="width: 40px; height: 40px; top: 60%; left: 15%; animation-duration: 30s; animation-delay: -10s;"></div>
-        <div class="motion-element" style="width: 60px; height: 60px; top: 70%; left: 80%; animation-duration: 35s; animation-delay: -15s;"></div>
-    </div>
-
     <!-- Header -->
     <header>
         <div class="container header-content">
             <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-hands-helping"></i>
-                </div>
+                <i class="fas fa-hands-helping logo-icon"></i>
                 <div>
                     <div class="logo-text">Sanctuary Haven</div>
                     <div class="logo-subtext">Unfettered Health Care for Little Souls</div>
@@ -1149,7 +1179,7 @@
                     <li><a href="#" class="nav-link" data-page="projects">Projects</a></li>
                     <li><a href="#" class="nav-link" data-page="get-involved">Get Involved</a></li>
                     <li><a href="#" class="nav-link" data-page="donate">Donate</a></li>
-                    <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+                    <li><a href="#" class="nav-link" data-page="apply">Apply</a></li>
                 </ul>
             </nav>
         </div>
@@ -1158,7 +1188,8 @@
     <!-- Home Page -->
     <div id="home" class="page active">
         <!-- Hero Section -->
-        <section class="hero">
+        <section class="hero" id="hero-slider">
+            <div class="hero-overlay"></div>
             <div class="floating-elements">
                 <div class="floating-element"></div>
                 <div class="floating-element"></div>
@@ -1169,7 +1200,7 @@
             <div class="container hero-content">
                 <h1>Championing Better Health for Children in Africa</h1>
                 <p>At Sanctuary Haven, youth come together to spread joy, kindness, and create real impact for children across Africa.</p>
-                <a href="#" class="btn">Make a Difference</a>
+                <a href="#" class="btn" data-page="get-involved">Make a Difference</a>
             </div>
         </section>
 
@@ -1215,8 +1246,7 @@
                     <div class="program-card">
                         <div class="program-image">
                             <div class="image-placeholder">
-                                <p><img src="images/health.PNG" alt="health education">
-</p>
+                                <p><img src="images/health.PNG" alt="health education"></p>
                             </div>
                         </div>
                         <div class="program-icon">
@@ -1372,7 +1402,8 @@
 
     <!-- About Page -->
     <div id="about" class="page">
-        <section class="hero">
+        <section class="hero hero-with-bg" style="background-image: url('images/Capture.PNG');">
+            <div class="hero-overlay"></div>
             <div class="container hero-content">
                 <h1>About Us</h1>
                 <p>Learn about our story, mission, and the team behind Sanctuary Haven.</p>
@@ -1440,7 +1471,8 @@
 
     <!-- Programs Page -->
     <div id="programs" class="page">
-        <section class="hero">
+        <section class="hero hero-with-bg" style="background-image: url('images/hands.PNG');">
+            <div class="hero-overlay"></div>
             <div class="container hero-content">
                 <h1>Our Programs</h1>
                 <p>Discover our comprehensive programs designed to improve children's healthcare across Africa.</p>
@@ -1506,7 +1538,8 @@
 
     <!-- Projects Page -->
     <div id="projects" class="page">
-        <section class="hero">
+        <section class="hero hero-with-bg" style="background-image: url('images/hands.PNG');">
+            <div class="hero-overlay"></div>
             <div class="container hero-content">
                 <h1>Our Projects</h1>
                 <p>Explore our ongoing and completed projects making a difference in children's lives.</p>
@@ -1533,7 +1566,7 @@
                     
                     <div class="project-item">
                         <div class="image-placeholder" style="height: 100%;">
-                            <p>Your Image: Vaccination Drive</p>
+                            <p>Vaccination Drive</p>
                         </div>
                         <div class="project-overlay">
                             <h3>Vaccination Drive</h3>
@@ -1608,14 +1641,15 @@
 
     <!-- Get Involved Page -->
 <div id="get-involved" class="page">
-    <section class="hero">
+    <section class="hero hero-with-bg" style="background-image: url('images/hands.PNG');">
+        <div class="hero-overlay"></div>
         <div class="container hero-content">
             <h1>Get Involved</h1>
             <p>Join our mission to provide healthcare to children across Africa. Your time and skills can make a real difference.</p>
         </div>
     </section>
 
-    <section class="form">
+    <section class="forms">
         <div class="container">
             <h2 class="section-title">Volunteer Opportunities</h2>
             <div class="form-container">
@@ -1629,7 +1663,8 @@
 
 <!-- Donate Page -->
 <div id="donate" class="page">
-    <section class="hero">
+    <section class="hero hero-with-bg" style="background-image: url('images/hands.PNG');">
+        <div class="hero-overlay"></div>
         <div class="container hero-content">
             <h1>Make a Donation</h1>
             <p>Your support helps us provide essential healthcare services to children across Africa.</p>
@@ -1703,14 +1738,15 @@
 
 <!-- Application Page -->
 <div id="apply" class="page">
-    <section class="hero">
+    <section class="hero hero-with-bg" style="background-image: url('images/hands.PNG');">
+        <div class="hero-overlay"></div>
         <div class="container hero-content">
             <h1>Join the Team</h1>
             <p>Join the executive team to implement realtime solutions and explore partnership opportunities.</p>
         </div>
     </section>
 
-    <section class="form">
+    <section class="forms">
         <div class="container">
             <h2 class="section-title">Executive Team</h2>
             <div class="form-container" style="margin-top: 3rem;">
@@ -1760,25 +1796,64 @@
     </div>
 
     <script>
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDxOgMgl_KO8-gDnLzb0qkj57Eo7OcEAnY",
-            authDomain: "sanctuaryhaven101.firebaseapp.com",
-            projectId: "sanctuaryhaven101",
-            storageBucket: "sanctuaryhaven101.firebasestorage.app",
-            messagingSenderId: "392125129513",
-            appId: "1:392125129513:web:2619943a8daa0214be4d38",
-            measurementId: "G-D26BQD3F80"
-        };
+        // Page navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetPage = this.getAttribute('data-page');
+                
+                // Hide all pages
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Show target page
+                document.getElementById(targetPage).classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            });
+        });
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        // Connect "Make a Difference" button to Get Involved page
+        document.querySelector('.btn[data-page="get-involved"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show get-involved page
+            document.getElementById('get-involved').classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        });
+
+        // Hero image rotation
+        const heroImages = [
+            'images/hero.png',
+            'images/Capture.PNG',
+            'images/health.PNG',
+            'images/2025.PNG',
+            'images/hands.PNG'
+        ];
+        
+        let currentImageIndex = 0;
+        const heroElement = document.getElementById('hero-slider');
+        
+        function changeHeroImage() {
+            currentImageIndex = (currentImageIndex + 1) % heroImages.length;
+            heroElement.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('${heroImages[currentImageIndex]}')`;
+        }
+        
+        // Change hero image every 5 seconds
+        setInterval(changeHeroImage, 5000);
 
         // Counter animation for statistics
-        function animateCounter(elementId, finalValue, duration) {
+        function animateCounter(element, finalValue, duration) {
             let startTime = null;
-            const element = document.getElementById(elementId);
             const initialValue = 0;
             
             function updateCounter(timestamp) {
@@ -1801,96 +1876,23 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    document.querySelectorAll('.stat-number').forEach((el, index) => {
+                    document.querySelectorAll('.stat-number').forEach((el) => {
                         const count = parseInt(el.getAttribute('data-count'));
-                        setTimeout(() => {
-                            animateCounter(`stat-${index}`, count, 2000);
-                        }, index * 300);
+                        animateCounter(el, count, 2000);
                     });
                     observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
         
-        // Add IDs to stat elements for animation
-        document.querySelectorAll('.stat-number').forEach((el, index) => {
-            el.id = `stat-${index}`;
-        });
-        
         observer.observe(document.querySelector('.impact'));
         
-        // Form submissions
-        document.getElementById('donation-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const amount = this.querySelector('input[type="number"]').value;
-            
-            // Save to Firebase
-            db.collection('donations').add({
-                amount: amount,
-                name: this.querySelectorAll('input[type="text"]')[0].value,
-                email: this.querySelectorAll('input[type="email"]')[0].value,
-                paymentMethod: this.querySelectorAll('select')[0].value,
-                timestamp: new Date()
-            })
-            .then(() => {
-                alert(`Thank you for your donation of $${amount}! Your support makes a difference.`);
-                this.reset();
-            })
-            .catch((error) => {
-                console.error("Error saving donation: ", error);
-                alert("There was an error processing your donation. Please try again.");
-            });
-        });
-        
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = {
-                name: this.querySelectorAll('input[type="text"]')[0].value,
-                email: this.querySelector('input[type="email"]').value,
-                subject: this.querySelectorAll('input[type="text"]')[1].value,
-                message: this.querySelector('textarea').value,
-                timestamp: new Date()
-            };
-            
-            // Save to Firebase
-            db.collection('contact-messages').add(formData)
-            .then(() => {
-                alert('Thank you for your message! We will get back to you soon.');
-                this.reset();
-            })
-            .catch((error) => {
-                console.error("Error saving contact message: ", error);
-                alert("There was an error sending your message. Please try again.");
-            });
-        });
-        
-        // Page navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetPage = this.getAttribute('data-page');
-                
-                // Hide all pages
-                document.querySelectorAll('.page').forEach(page => {
-                    page.classList.remove('active');
-                });
-                
-                // Show target page
-                document.getElementById(targetPage).classList.add('active');
-                
-                // Scroll to top
-                window.scrollTo(0, 0);
-            });
-        });
-
         // Add animation to project items when they come into view
         const projectObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 1s ease-out forwards';
                     entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                     projectObserver.unobserve(entry.target);
                 }
             });
@@ -1899,23 +1901,9 @@
         // Observe all project items
         document.querySelectorAll('.project-item').forEach(item => {
             item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
             projectObserver.observe(item);
-        });
-
-        // Animate vision cards on scroll
-        const visionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 1s ease-out forwards';
-                    entry.target.style.opacity = '1';
-                    visionObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.vision-card').forEach(card => {
-            card.style.opacity = '0';
-            visionObserver.observe(card);
         });
 
         // Enhanced motion for floating elements
