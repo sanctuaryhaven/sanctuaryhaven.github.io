@@ -38,89 +38,100 @@
             margin: 0 auto;
         }
         
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .logo-icon {
-            font-size: 2.5rem;
-            margin-right: 10px;
-            color: var(--accent);
-            text-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
-        }
-        
-        .logo-text {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 1.8rem;
-        }
-        
-        .logo-subtext {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 1.5rem;
-            position: relative;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-            padding: 0.5rem 0;
-        }
-        
-        nav ul li a:hover {
-            color: var(--accent);
-        }
-        
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--accent);
-            transition: width 0.3s;
-        }
-        
-        nav ul li a:hover::after {
-            width: 100%;
-        }
+       /* Header Styles */
+header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Flexbox for header content */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo container */
+.logo {
+    display: flex;
+    align-items: center;
+    animation: pulse 2s infinite;
+}
+
+/* Logo animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Logo icon size */
+.logo-icon {
+    font-size: 2.5rem;
+    margin-right: 10px;
+    color: var(--accent);
+    text-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+}
+
+/* Main logo text (title) */
+.logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 2.5vw, 2.4rem); /* Increased size + responsiveness */
+    line-height: 1.2;
+}
+
+/* Tagline under logo */
+.logo-subtext {
+    font-size: clamp(1rem, 1.5vw, 1.2rem); /* Increased for better readability */
+    opacity: 0.9;
+    display: block;
+    margin-top: 2px;
+}
+
+/* Navigation styles */
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 1.5rem;
+    position: relative;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+    padding: 0.5rem 0;
+}
+
+nav ul li a:hover {
+    color: var(--accent);
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent);
+    transition: width 0.3s;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
         
         /* Hero Section */
         .hero {
@@ -1162,16 +1173,18 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
-      <div class="container header-content" style="display: flex; align-items: center; gap: 10px;">
-    <div class="logo" style="display: flex; align-items: center; gap: 10px;">
-        <img src="images/logo.png" alt="Sanctuary Haven Logo" style="width: 50px; height: 50px; object-fit: contain;">
-        <div>
-            <div style="font-size: 20px; font-weight: bold; color: #222;">Sanctuary Haven</div>
-            <div style="font-size: 12px; color: #666;">Unfettered Health Care for Little Souls</div>
-        </div>
+   <header class="header">
+  <div class="container header-content">
+    <div class="logo">
+      <img src="images/tru.png" alt="Sanctuary Haven Logo" class="logo-img">
+      <div class="logo-text">
+        <div class="logo-title">Sanctuary Haven</div>
+        <div class="logo-tagline">Unfettered Health Care for Little Souls</div>
+      </div>
     </div>
-</div>
+  </div>
+</header>
+
 
             <nav>
                 <ul>
