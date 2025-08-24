@@ -1163,14 +1163,16 @@
 <body>
     <!-- Header -->
     <header>
-        <div class="container header-content">
-            <div class="logo">
-                <i class="fas fa-hands-helping logo-icon"></i>
-                <div>
-                    <div class="logo-text">Sanctuary Haven</div>
-                    <div class="logo-subtext">Unfettered Health Care for Little Souls</div>
-                </div>
-            </div>
+      <div class="container header-content" style="display: flex; align-items: center; gap: 10px;">
+    <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+        <img src="images/logo.png" alt="Sanctuary Haven Logo" style="width: 50px; height: 50px; object-fit: contain;">
+        <div>
+            <div style="font-size: 20px; font-weight: bold; color: #222;">Sanctuary Haven</div>
+            <div style="font-size: 12px; color: #666;">Unfettered Health Care for Little Souls</div>
+        </div>
+    </div>
+</div>
+
             <nav>
                 <ul>
                     <li><a href="#" class="nav-link" data-page="home">Home</a></li>
@@ -1809,7 +1811,24 @@
 
     <!-- Logo Watermark -->
     <div class="logo-watermark">
-        <i class="fas fa-hands-helping"></i>
+        <i class="fas fa-<div class="logo-watermark" style="display: flex; justify-content: center; align-items: center; margin-top: 15px;">
+    <img src="images/logo.png" alt="Sanctuary Haven Logo" style="width: 60px; height: auto; opacity: 0.2; object-fit: contain; transition: opacity 0.3s ease-in-out;">
+</div><div style="position: relative; text-align: center; padding: 50px 0; background-color: #222; overflow: hidden;">
+
+    <!-- Watermark Logo ONLY -->
+    <img src="images/logo.png" alt="Sanctuary Haven Watermark"
+         style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 180px;  /* Adjust size if needed */
+            height: auto;
+            opacity: 0.08; /* Makes it look like a watermark */
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+         ">
+
+</div>-helping"></i>
     </div>
 
     <script>
