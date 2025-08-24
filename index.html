@@ -43,12 +43,11 @@
 header {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
-    padding: 1.5rem 2rem;
+    padding: 0.8rem 1rem; /* Smaller, compact header */
     position: sticky;
     top: 0;
-    width: 100%;
     z-index: 1000;
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* HEADER CONTENT */
@@ -56,126 +55,133 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1300px;
-    margin: 0 auto;
 }
 
-/* LOGO AREA */
+/* LOGO */
 .logo {
     display: flex;
     align-items: center;
-    gap: 15px;
+    animation: pulse 2s infinite;
 }
 
-.logo img {
-    width: 65px;
-    height: 65px;
-    object-fit: contain;
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.logo-icon {
+    font-size: 2rem; /* Reduced to fix spacing */
+    margin-right: 10px;
+    color: var(--accent);
+    text-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
 }
 
 .logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.3;
-}
-
-.logo-title {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem; /* Slightly smaller for balance */
 }
 
 .logo-subtext {
-    font-size: 1rem;
+    font-size: 0.8rem;
     opacity: 0.9;
-    color: #f5f5f5;
 }
 
 /* NAVIGATION MENU */
-nav {
-    display: flex;
-}
-
 nav ul {
     display: flex;
     list-style: none;
-    gap: 2rem;
-    align-items: center;
-    margin: 0;
-    padding: 0;
+}
+
+nav ul li {
+    margin-left: 1.5rem;
+    position: relative;
 }
 
 nav ul li a {
-    position: relative;
-    color: #fff;
+    color: white;
     text-decoration: none;
-    font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: 0.5px;
-    padding: 10px 16px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    font-weight: 600;
+    transition: color 0.3s;
+    padding: 0.5rem 0;
 }
 
 nav ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.12);
     color: var(--accent);
 }
 
-/* HAMBURGER BUTTON */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent);
+    transition: width 0.3s;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* HAMBURGER ICON */
 .hamburger {
     display: none;
     flex-direction: column;
-    justify-content: space-between;
-    width: 28px;
-    height: 22px;
+    gap: 5px;
     cursor: pointer;
-    z-index: 1100;
 }
 
 .hamburger span {
-    display: block;
+    width: 25px;
     height: 3px;
-    background: white;
-    border-radius: 3px;
-    transition: 0.3s ease;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
 }
 
-/* MOBILE MENU STYLES */
+/* RESPONSIVE NAVIGATION */
 @media (max-width: 768px) {
-    /* Show hamburger */
-    .hamburger {
-        display: flex;
-    }
-
-    /* Hide menu initially */
     nav {
-        position: absolute;
-        top: 80px;
-        right: 0;
-        background: var(--primary);
-        width: 100%;
         display: none;
-        flex-direction: column;
-        align-items: center;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: var(--primary);
         padding: 15px 0;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: max-height 0.4s ease-in-out;
     }
 
-    /* Show menu when active */
     nav.active {
-        display: flex;
+        display: block;
     }
 
     nav ul {
         flex-direction: column;
-        gap: 15px;
+        gap: 12px;
     }
 
-    nav ul li a {
-        font-size: 1.1rem;
-        padding: 10px 20px;
+    .hamburger {
+        display: flex;
     }
+}
+
+/* HAMBURGER ANIMATION ("X" EFFECT) */
+.hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
 }
 
 
@@ -1231,25 +1237,20 @@ nav ul li a:hover {
 </head>
 <body>
 <!-- Header -->
-<header class="header">
+<header>
   <div class="container header-content">
-    <!-- Logo + Title -->
+    <!-- Logo -->
     <div class="logo">
-      <img src="images/tru.PNG" alt="Sanctuary Haven Logo" class="logo-img">
-      <div class="logo-text">
-        <div class="logo-title">Sanctuary Haven</div>
+      <div class="logo-icon">
+        <i class="fas fa-hands-helping"></i>
+      </div>
+      <div>
+        <div class="logo-text">Sanctuary Haven</div>
         <div class="logo-subtext">Unfettered Health Care for Little Souls</div>
       </div>
     </div>
 
-    <!-- Hamburger Button (Visible on Mobile) -->
-    <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-    <!-- Navigation Menu -->
+    <!-- Navigation -->
     <nav id="navMenu">
       <ul>
         <li><a href="#" class="nav-link" data-page="home">Home</a></li>
@@ -1261,9 +1262,15 @@ nav ul li a:hover {
         <li><a href="#" class="nav-link" data-page="apply">Apply</a></li>
       </ul>
     </nav>
+
+    <!-- Hamburger Icon -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
 </header>
-
 
     <!-- Home Page -->
     <div id="home" class="page active">
