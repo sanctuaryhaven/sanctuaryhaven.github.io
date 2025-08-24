@@ -43,7 +43,7 @@
 header {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
-    padding: 1.5rem 2rem; /* Bigger header height */
+    padding: 1.8rem 2rem; /* Bigger header height */
     position: sticky;
     top: 0;
     width: 100%;
@@ -68,8 +68,8 @@ header {
 }
 
 .logo img {
-    width: 65px;
-    height: 65px;
+    width: 70px;
+    height: 70px;
     object-fit: contain;
 }
 
@@ -80,7 +80,7 @@ header {
 }
 
 .logo-title {
-    font-size: 2rem; /* Bigger logo title */
+    font-size: 2.2rem; /* Bigger logo title */
     font-weight: 800;
     color: #fff;
 }
@@ -88,7 +88,7 @@ header {
 .logo-subtext {
     font-size: 1rem;
     font-weight: 400;
-    opacity: 0.85;
+    opacity: 0.9;
     color: #f5f5f5;
 }
 
@@ -104,19 +104,20 @@ nav ul {
 
 /* NAVIGATION BUTTONS */
 nav ul li a {
+    position: relative; /* REQUIRED for underline animation */
     color: #fff;
     text-decoration: none;
     font-weight: 700;
-    font-size: 1.2rem; /* Bigger buttons */
+    font-size: 1.2rem;
     letter-spacing: 0.5px;
-    padding: 10px 16px;
+    padding: 12px 18px;
     border-radius: 8px;
     transition: all 0.3s ease;
 }
 
 /* HOVER EFFECT */
 nav ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.12);
     color: var(--accent);
 }
 
@@ -126,7 +127,7 @@ nav ul li a::after {
     position: absolute;
     width: 0;
     height: 3px;
-    bottom: -5px;
+    bottom: 5px;
     left: 0;
     background-color: var(--accent);
     transition: width 0.3s ease;
@@ -147,16 +148,15 @@ nav ul li a:hover::after {
     nav ul {
         flex-direction: column;
         gap: 12px;
+        margin-top: 12px;
     }
 
     nav ul li a {
         font-size: 1.1rem;
-        padding: 8px 14px;
+        padding: 10px 14px;
     }
 }
 
-
-        
         /* Hero Section */
         .hero {
             background-size: cover;
@@ -1208,33 +1208,33 @@ nav ul li a:hover::after {
     </style>
 </head>
 <body>
-    <!-- Header -->
-   <header class="header">
+<!-- Header -->
+<header class="header">
   <div class="container header-content">
+    <!-- Logo + Title -->
     <div class="logo">
       <img src="images/tru.PNG" alt="Sanctuary Haven Logo" class="logo-img">
       <div class="logo-text">
         <div class="logo-title">Sanctuary Haven</div>
-        <div class="logo-tagline">Unfettered Health Care for Little Souls</div>
+        <div class="logo-subtext">Unfettered Health Care for Little Souls</div>
       </div>
     </div>
+
+    <!-- Navigation Menu -->
+    <nav>
+      <ul>
+        <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+        <li><a href="#" class="nav-link" data-page="about">About</a></li>
+        <li><a href="#" class="nav-link" data-page="programs">Programs</a></li>
+        <li><a href="#" class="nav-link" data-page="projects">Projects</a></li>
+        <li><a href="#" class="nav-link" data-page="get-involved">Get Involved</a></li>
+        <li><a href="#" class="nav-link" data-page="donate">Donate</a></li>
+        <li><a href="#" class="nav-link" data-page="apply">Apply</a></li>
+      </ul>
+    </nav>
   </div>
 </header>
 
-
-            <nav>
-                <ul>
-                    <li><a href="#" class="nav-link" data-page="home">Home</a></li>
-                    <li><a href="#" class="nav-link" data-page="about">About</a></li>
-                    <li><a href="#" class="nav-link" data-page="programs">Programs</a></li>
-                    <li><a href="#" class="nav-link" data-page="projects">Projects</a></li>
-                    <li><a href="#" class="nav-link" data-page="get-involved">Get Involved</a></li>
-                    <li><a href="#" class="nav-link" data-page="donate">Donate</a></li>
-                    <li><a href="#" class="nav-link" data-page="apply">Apply</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
     <!-- Home Page -->
     <div id="home" class="page active">
