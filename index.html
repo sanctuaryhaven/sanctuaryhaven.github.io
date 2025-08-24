@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-   
+    <!-- Firebase and JQuery -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <style>
         * {
@@ -22,6 +25,10 @@
             --accent: #ffd166;
             --light: #f8f9fa;
             --dark: #343a40;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --purple: #9c27b0;
+            --pink: #e91e63;
         }
         
         body {
@@ -124,19 +131,18 @@
         
         /* Hero Section */
         .hero {
-    background: 
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
-        url("images/hero.png"); /* path to your hero image */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: white;
-    text-align: center;
-    padding: 8rem 1rem;
-    position: relative;
-    overflow: hidden;
-}
-
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+                url("https://images.unsplash.com/photo-1577896851231-70ef1882c5b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+            padding: 8rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
         
         .hero::before {
             content: '';
@@ -188,12 +194,29 @@
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             animation: pulse 2s infinite 1s;
+            border: none;
+            cursor: pointer;
         }
         
         .btn:hover {
             background: #ffc44d;
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
         }
         
         .floating-elements {
@@ -333,8 +356,8 @@
         
         .mission-image img {
             width: 100%;
-            height: auto;
-            display: block;
+            height: 100%;
+            object-fit: cover;
             transition: transform 0.5s;
         }
         
@@ -841,6 +864,7 @@
         /* Page Navigation */
         .page {
             display: none;
+            animation: fadeIn 0.5s ease;
         }
         
         .page.active {
@@ -867,6 +891,15 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
             }
         }
         
@@ -1059,6 +1092,60 @@
             border-radius: 10px;
         }
         
+        /* Loading animation */
+        .loader {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            display: none;
+        }
+        
+        .loader:after {
+            content: " ";
+            display: block;
+            width: 64px;
+            height: 64px;
+            margin: 8px;
+            border-radius: 50%;
+            border: 6px solid var(--primary);
+            border-color: var(--primary) transparent var(--primary) transparent;
+            animation: loader 1.2s linear infinite;
+        }
+        
+        @keyframes loader {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
@@ -1121,6 +1208,12 @@
     </style>
 </head>
 <body>
+    <!-- Loading animation -->
+    <div class="loader" id="page-loader"></div>
+    
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
     <!-- Motion elements -->
     <div class="motion-elements">
         <div class="motion-element" style="width: 50px; height: 50px; top: 10%; left: 5%; animation-duration: 25s;"></div>
@@ -1158,7 +1251,7 @@
     <!-- Home Page -->
     <div id="home" class="page active">
         <!-- Hero Section -->
-        <section class="hero">
+        <section class="hero" id="hero-section">
             <div class="floating-elements">
                 <div class="floating-element"></div>
                 <div class="floating-element"></div>
@@ -1169,7 +1262,7 @@
             <div class="container hero-content">
                 <h1>Championing Better Health for Children in Africa</h1>
                 <p>At Sanctuary Haven, youth come together to spread joy, kindness, and create real impact for children across Africa.</p>
-                <a href="#" class="btn">Make a Difference</a>
+                <a href="#" class="btn" id="make-difference-btn">Make a Difference</a>
             </div>
         </section>
 
@@ -1184,9 +1277,7 @@
                         <p>Our approach combines immediate care with long-term solutions, ensuring that our impact creates lasting change for generations to come.</p>
                     </div>
                     <div class="mission-image">
-                        <div class="image-placeholder">
-                            <p><img src="images/Capture.PNG" alt="Mayambala Orphanage"></p>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Children receiving healthcare">
                     </div>
                 </div>
             </div>
@@ -1199,9 +1290,7 @@
                 <div class="program-cards">
                     <div class="program-card">
                         <div class="program-image">
-                            <div class="image-placeholder">
-                                <p><img src="images/Capture.PNG" alt="Mayambala Orphanage"></p>
-                            </div>
+                            <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Medical outreach">
                         </div>
                         <div class="program-icon">
                             <i class="fas fa-heartbeat"></i>
@@ -1214,10 +1303,7 @@
                     
                     <div class="program-card">
                         <div class="program-image">
-                            <div class="image-placeholder">
-                                <p><img src="images/health.PNG" alt="health education">
-</p>
-                            </div>
+                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Health education">
                         </div>
                         <div class="program-icon">
                             <i class="fas fa-book-medical"></i>
@@ -1230,12 +1316,10 @@
                     
                     <div class="program-card">
                         <div class="program-image">
-                            <div class="image-placeholder">
-                                <p><img src="images/2025.PNG" alt="Description of image"></p>
-                            </div>
+                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Vision boards">
                         </div>
                         <div class="program-icon">
-                            <i class="fas fa-hand-holding-water"></i>
+                            <i class="fas fa-lightbulb"></i>
                         </div>
                         <div class="program-content">
                             <h3>Vision boards</h3>
@@ -1308,7 +1392,7 @@
                             <i class="fas fa-hospital"></i>
                         </div>
                         <h3>Continental Expansion</h3>
-                        <p>Grow Sanctuary Haven’s presence across Africa by recruiting ambassadors and establishing programs in new countries beyond Ethiopia, Côte d’Ivoire, Nigeria, Kenya, and Uganda.</p>
+                        <p>Grow Sanctuary Haven's presence across Africa by recruiting ambassadors and establishing programs in new countries beyond Ethiopia, Côte d'Ivoire, Nigeria, Kenya, and Uganda.</p>
                     </div>
                     
                     <div class="vision-card">
@@ -1365,7 +1449,7 @@
                 <p>Subscribe to our newsletter to receive updates on our programs, impact stories, and opportunities to get involved.</p>
                 
                 <!-- JotForm Newsletter Form -->
-                <script type="text/javascript" src="https://form.jotform.com/jsform/252346359275565"></script>
+                <iframe src="https://form.jotform.com/252346359275565" class="jotform-form" id="newsletter-form"></iframe>
             </div>
         </section>
     </div>
@@ -1386,13 +1470,11 @@
                     <div class="mission-text">
                        <p>Sanctuary Haven was founded in 2024 by Nagginda Maisoon, inspired by the healthcare disparities affecting children in Uganda and beyond. What began as a small initiative has grown into a movement of young changemakers dedicated to transforming pediatric healthcare across Africa.</p>
 <p>Our unique model empowers youth to lead healthcare initiatives, combining their energy and innovation with guidance from medical professionals to create sustainable impact. We believe that young people are not just the leaders of tomorrow but the changemakers of today.</p>
-<p>Today, Sanctuary Haven operates in several countries, including Uganda, Ethiopia, Côte d’Ivoire, Nigeria, and Kenya, expanding our reach and impact across the continent.</p>
+<p>Today, Sanctuary Haven operates in several countries, including Uganda, Ethiopia, Côte d'Ivoire, Nigeria, and Kenya, expanding our reach and impact across the continent.</p>
 <p>Over the years, we've maintained our grassroots approach while expanding our reach, always staying true to our core values of compassion, innovation, and sustainable impact.</p>
                     </div>
                     <div class="mission-image">
-                        <div class="image-placeholder">
-                            <p> <img src="images/Capture.PNG" alt="Description of image"></p>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1576091160557-21c5c8c453788?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Team photo">
                     </div>
                 </div>
             </div>
@@ -1430,7 +1512,7 @@
                         <div class="stat-icon">
                             <i class="fas fa-trophy"></i>
                         </div>
-                        <span class="stat-number" data-count="100+">0</span>
+                        <span class="stat-number" data-count="100">0</span>
                         <p>Impact</p>
                     </div>
                 </div>
@@ -1453,9 +1535,7 @@
                 <div class="program-cards">
                     <div class="program-card">
                         <div class="program-image">
-                            <div class="image-placeholder">
-                                <p> <img src="images/hands.PNG" alt="Mayambala"></p>
-                            </div>
+                            <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Medical outreach">
                         </div>
                         <div class="program-icon">
                             <i class="fas fa-heartbeat"></i>
@@ -1470,9 +1550,7 @@
                     
                     <div class="program-card">
                         <div class="program-image">
-                            <div class="image-placeholder">
-                                <p><img src="images/more.PNG" alt="Mayambala"></p>
-                            </div>
+                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Health education">
                         </div>
                         <div class="program-icon">
                             <i class="fas fa-book-medical"></i>
@@ -1486,9 +1564,7 @@
                     
                     <div class="program-card">
                         <div class="program-image">
-                            <div class="image-placeholder">
-                                <p><img src="https://www.wvi.org/sites/default/files/2022-03/D200-0913-105.jpg" alt="Mayambala"></p>
-                            </div>
+                            <img src="https://images.unsplash.com/photo-1576669808290-8449ae2128e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Clean water initiative">
                         </div>
                         <div class="program-icon">
                             <i class="fas fa-hand-holding-water"></i>
@@ -1519,12 +1595,10 @@
                 
                 <div class="projects-gallery">
                     <div class="project-item">
-                        <div class="image-placeholder" style="height: 100%;">
-                            <p><img src="images/hands.PNG" alt="Mayambala"></p>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1576669808290-8449ae2128e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="project-image" alt="Mayambala Orphanage">
                         <div class="project-overlay">
                             <h3>At Mayambala Orphanage</h3>
-                            <p>We partnered with Mai-Moja to spread happiness and hope among children, because we believe joy is also a part of healing. At Mayambala Orphanage, Sanctuary Haven’s work combines emotional support with health-centered initiatives, ensuring that children not only smile today but also build healthier tomorrows.</p>
+                            <p>We partnered with Mai-Moja to spread happiness and hope among children, because we believe joy is also a part of healing. At Mayambala Orphanage, Sanctuary Haven's work combines emotional support with health-centered initiatives, ensuring that children not only smile today but also build healthier tomorrows.</p>
                         </div>
                         <div class="project-social-icon">
                             <i class="fas fa-plus"></i>
@@ -1532,53 +1606,46 @@
                     </div>
                     
                     <div class="project-item">
-                        <div class="image-placeholder" style="height: 100%;">
-                            <p>Your Image: Vaccination Drive</p>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1576669808290-8449ae2128e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="project-image" alt="Vaccination Drive">
                         <div class="project-overlay">
                             <h3>Vaccination Drive</h3>
-                            <p>Protecting children from preventable diseases</p>
+                            <p>Protecting children from preventable diseases through our comprehensive vaccination programs in underserved communities.</p>
                         </div>
                         <div class="project-social-icon">
                             <a href="https://www.instagram.com/p/DJw3fGAIivq/" target="_blank">
-    <i class="fab fa-instagram"></i>
-  </a>
+                                <i class="fab fa-instagram"></i>
+                            </a>
                         </div>
                     </div>
                     
                     <div class="project-item">
-                        <div class="image-placeholder" style="height: 100%;">
-                            <p><img src="images/hands.PNG" alt="Mayambala"></p>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1576669808290-8449ae2128e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="project-image" alt="Kawempe Home Care">
                         <div class="project-overlay">
                             <h3>Kawempe Home Care</h3>
                             <p>A day of joy, laughter, and love at Kawempe Home Care, where Sanctuary Haven volunteers brightened the lives of children bravely battling cancer. From creating vision boards for 2025 to donating essentials, the air was filled with hope, smiles, and unforgettable moments.</p>
                         </div>
                         <div class="project-social-icon">
                             <a href="https://www.instagram.com/p/DD9DhTxII6m/?img_index=1" target="_blank">
-    <i class="fab fa-instagram"></i>
-  </a>
+                                <i class="fab fa-instagram"></i>
+                            </a>
                         </div>
                     </div>
                     
                     <div class="project-item">
-                        <div class="image-placeholder" style="height: 100%;">
-                            <p><img src="images/true.PNG" alt="essay"></p>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1576669808290-8449ae2128e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="project-image" alt="Essay competition">
                         <div class="project-overlay">
                             <h3>Let's talk about feelings</h3>
-                            <p>Through this essay competition, children opened their hearts about what it means to care for young minds in Uganda. Reading their words gave us a glimpse into hidden struggles, quiet hopes, and the strength it takes to speak out. </p>
+                            <p>Through this essay competition, children opened their hearts about what it means to care for young minds in Uganda. Reading their words gave us a glimpse into hidden struggles, quiet hopes, and the strength it takes to speak out.</p>
                         </div>
                         <div class="project-social-icon">
                             <a href="https://www.instagram.com/p/DJ4z7ASon9v/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">
-    <i class="fab fa-instagram"></i>
+                                <i class="fab fa-instagram"></i>
+                            </a>
                         </div>
                     </div>
                     
                     <div class="project-item">
-                        <div class="image-placeholder" style="height: 100%;">
-                            <p><img src="https://data.unicef.org/wp-content/uploads/2017/07/UN0211928.jpg"></p>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1576669808290-8449ae2128e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="project-image" alt="Water project">
                         <div class="project-overlay">
                             <h3>Water Project</h3>
                             <p>Clean Water, New Beginnings. Sanctuary Haven brings safe water to communities, nurturing health, hope, and brighter tomorrows.</p>
@@ -1589,12 +1656,10 @@
                     </div>
                     
                     <div class="project-item">
-                        <div class="image-placeholder" style="height: 100%;">
-                            <p><img src="images/africa.PNG" alt="continent"></p>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1576669808290-8449ae2128e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="project-image" alt="Continental expansion">
                         <div class="project-overlay">
                             <h3>Continental Expansion</h3>
-                            <p>From Addis Ababa to Nairobi, Kampala, Lagos, and Abidjan, Sanctuary Haven is breaking barriers to deliver unfettered healthcare to children across Africa. </p>
+                            <p>From Addis Ababa to Nairobi, Kampala, Lagos, and Abidjan, Sanctuary Haven is breaking barriers to deliver unfettered healthcare to children across Africa.</p>
                             <p>Our mission is simple — to reach underserved communities and ensure every little soul has the chance to grow healthy and thrive.</p>
                         </div>
                         <div class="project-social-icon">
@@ -1615,13 +1680,13 @@
         </div>
     </section>
 
-    <section class="form">
+    <section class="forms">
         <div class="container">
             <h2 class="section-title">Volunteer Opportunities</h2>
             <div class="form-container">
                 <h3>Volunteer Application Form</h3>
                 <!-- JotForm Volunteer Form -->
-                <script type="text/javascript" src="https://form.jotform.com/jsform/252346112851047"></script>
+                <iframe src="https://form.jotform.com/252346112851047" class="jotform-form" id="volunteer-form"></iframe>
             </div>
         </div>
     </section>
@@ -1644,25 +1709,25 @@
                 <div class="donation-option">
                     <div class="donation-amount">$25</div>
                     <div class="donation-desc">Provides health supplies for 5 children</div>
-                    <button class="btn">Donate Now</button>
+                    <button class="btn" data-amount="25">Donate Now</button>
                 </div>
 
                 <div class="donation-option">
                     <div class="donation-amount">$50</div>
                     <div class="donation-desc">Supports a mobile clinic for a day</div>
-                    <button class="btn">Donate Now</button>
+                    <button class="btn" data-amount="50">Donate Now</button>
                 </div>
 
                 <div class="donation-option">
                     <div class="donation-amount">$100</div>
                     <div class="donation-desc">Provides clean water for a family</div>
-                    <button class="btn">Donate Now</button>
+                    <button class="btn" data-amount="100">Donate Now</button>
                 </div>
 
                 <div class="donation-option">
                     <div class="donation-amount">$250</div>
                     <div class="donation-desc">Funds health education workshops</div>
-                    <button class="btn">Donate Now</button>
+                    <button class="btn" data-amount="250">Donate Now</button>
                 </div>
             </div>
 
@@ -1710,13 +1775,13 @@
         </div>
     </section>
 
-    <section class="form">
+    <section class="forms">
         <div class="container">
             <h2 class="section-title">Executive Team</h2>
             <div class="form-container" style="margin-top: 3rem;">
                 <h3>Executive Member Application</h3>
                 <!-- JotForm Executive Form -->
-                <script type="text/javascript" src="https://form.jotform.com/jsform/252346828101049"></script>
+                <iframe src="https://form.jotform.com/252346828101049" class="jotform-form" id="executive-form"></iframe>
             </div>
         </div>
     </section>
